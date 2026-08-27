@@ -18,5 +18,14 @@ fi
 echo "⚡ [SHADOW CORE]: Verifying base local models..."
 ollama pull qwen2.5-coder:latest > /dev/null 2>&1 &
 
-# 3. Run Shadow Core Python HUD
+# 3. Ensure autonomy dependencies are present (filesystem + screen watching)
+python3 -c "import watchdog" 2>/dev/null || pip install --quiet watchdog
+python3 -c "import imagehash" 2>/dev/null || pip install --quiet Pillow imagehash
+
+# 4. Ensure sensor dependencies are present (camera + voice; location needs no extra package)
+python3 -c "import cv2" 2>/dev/null || pip install --quiet opencv-python
+python3 -c "import sounddevice, numpy" 2>/dev/null || pip install --quiet sounddevice numpy
+python3 -c "import whisper" 2>/dev/null || pip install --quiet openai-whisper
+
+# 5. Run Shadow Core Python HUD
 python3 shadow_core.py

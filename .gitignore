@@ -4,6 +4,8 @@ ollama_models/
 __pycache__/
 *.db
 chat_history.json
+config.json
+logs/
 workspace/
 /tmp/
 bin/
