@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Shadow Core AI
+Comment=Launch Holographic Vision AI System
+Exec=bash -c '"$(dirname "%k")/run_shadowcore.sh"'
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;Development;
+StartupNotify=true

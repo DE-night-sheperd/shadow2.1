@@ -1,0 +1,10 @@
+venv/
+ollama/
+ollama_models/
+__pycache__/
+*.db
+chat_history.json
+workspace/
+/tmp/
+bin/
+bin/
