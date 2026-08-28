@@ -14,8 +14,12 @@ isn't on it -- that's what keeps this from turning into notification noise.
 import json
 import sqlite3
 import time
+import os
 
-DB_PATH = "accounts_sim.db"
+DIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+DB_PATH = os.path.join(DATA_DIR, "accounts_sim.db")
 
 
 def _connect():

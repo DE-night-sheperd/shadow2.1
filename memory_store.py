@@ -15,7 +15,9 @@ import time
 import os
 
 DIR = os.path.dirname(os.path.realpath(__file__))
-DB_PATH = os.path.join(DIR, "memory.db")
+DATA_DIR = os.path.join(DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+DB_PATH = os.path.join(DATA_DIR, "memory.db")
 
 
 def _connect():

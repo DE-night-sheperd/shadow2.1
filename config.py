@@ -6,7 +6,9 @@ import json
 import os
 
 DIR = os.path.dirname(os.path.realpath(__file__))
-CONFIG_PATH = os.path.join(DIR, "config.json")
+DATA_DIR = os.path.join(DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+CONFIG_PATH = os.path.join(DATA_DIR, "config.json")
 
 DEFAULTS = {
     # Master switch. When False, the app behaves exactly like the original

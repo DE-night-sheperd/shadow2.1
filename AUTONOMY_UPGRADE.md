@@ -194,6 +194,51 @@ functions are structured so a real backend could eventually be swapped in
 behind the same function signatures, but doing that swap is out of scope
 here on purpose.
 
+## Bug fixes in this delivery
+
+- **Consolidated all local databases into `data/`.** `bank_sim.py`,
+  `accounts_sim.py`, and `services_sim.py` previously used bare relative
+  filenames (`"bank_ledger.db"`, `"accounts_sim.db"`, `"wallet_sim.db"`),
+  which meant each of them resolved to whatever directory the process
+  happened to be launched from -- if you ran `shadow_core.py` from
+  different working directories, you'd get separate, silently-diverging
+  copies of the same "database." All five local stores (`bank_ledger.db`,
+  `accounts_sim.db`, `wallet_sim.db`, `memory.db`, `config.json`,
+  `chat_history.json`) now anchor to `<project_dir>/data/`, resolved from
+  each module's own file location, so it's the same folder no matter where
+  you launch from.
+- **Broadened the groceries/food trigger matching.** Phrases like "how
+  about making some groceries" or "I want to make some shopping for food"
+  previously didn't match any keyword and fell through to generic chat
+  (where the model would improvise something unrelated, like writing a
+  hardcoded Python script). The matcher now catches "groceries"/"grocery"
+  anywhere in the message, plus "shop/shopping for food" and "buy food"
+  phrasing -- verified against the exact phrases that failed before.
+
+## A note on Ollama connection errors
+
+If you see `System Connection Error: model 'llama3' not found` or `Failed
+to connect to Ollama`, that's not a bug in this project -- it means Ollama
+either isn't running, or the model weights haven't actually been pulled to
+wherever `OLLAMA_MODELS` points. Check with:
+
+```
+ollama list
+```
+
+If your models aren't listed, pull them (this downloads several GB per
+model):
+
+```
+ollama pull llama3
+ollama pull qwen2.5-coder
+ollama pull llava
+```
+
+If you're running Ollama from a portable/external drive, make sure
+`OLLAMA_MODELS` is set to that drive's model folder for both `ollama serve`
+and every `ollama pull`, or it'll default to your home directory instead.
+
 ## Suggested next steps for you
 
 - Try `AUTO: OFF` first with `goal: ...` manually a few times before

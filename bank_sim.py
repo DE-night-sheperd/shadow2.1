@@ -1,8 +1,12 @@
 import sqlite3
 import uuid
+import os
 from datetime import datetime
 
-DB_PATH = "bank_ledger.db"
+DIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+DB_PATH = os.path.join(DATA_DIR, "bank_ledger.db")
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)

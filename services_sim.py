@@ -20,11 +20,15 @@ import hashlib
 import random
 import sqlite3
 import time
+import os
 from datetime import datetime
 
 SIMULATION_BANNER = "⚠️ SIMULATED DEMO -- no real ride, order, or purchase is being placed."
 
-DIR_DB_PATH = "wallet_sim.db"
+DIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+DIR_DB_PATH = os.path.join(DATA_DIR, "wallet_sim.db")
 
 # ---------------------------------------------------------------------------
 # Fake wallet, so grocery/food totals have something to check against.
